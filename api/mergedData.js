@@ -1,4 +1,4 @@
-import { getSingleAuthor } from './authorData';
+import { getAuthorBooks, getSingleAuthor } from './authorData';
 import { getSingleBook } from './bookData';
 
 // for merged promises
@@ -9,4 +9,13 @@ const getBookDetails = async (firebaseKey) => { // the async keyword let's JS kn
   return { ...bookObject, authorObject };
 };
 
-export default getBookDetails;
+const getAuthorDetails = async (authorFirebaseKey) => {
+  const authorObject = await getSingleAuthor(authorFirebaseKey);
+  const authorBooks = await getAuthorBooks(authorFirebaseKey);
+  // console.warn(authorObject);
+  // console.warn(authorFirebaseKey);
+
+  return { ...authorObject, books: authorBooks };
+};
+
+export { getBookDetails, getAuthorDetails };
