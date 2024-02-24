@@ -14,10 +14,17 @@ const navigationEvents = () => {
   document.querySelector('#sale-books').addEventListener('click', () => {
     // console.warn('CLICKED SALE BOOKS');
     booksOnSale().then(showBooks);
+    document.querySelector('.navbar-toggler').click();
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
+    // console.warn('CLICKED ALL BOOKS');
+    getBooks().then(showBooks);
+    document.querySelector('.navbar-toggler').click();
+  });
+
+  document.querySelector('#logo').addEventListener('click', () => {
     // console.warn('CLICKED ALL BOOKS');
     getBooks().then(showBooks);
   });
@@ -29,11 +36,13 @@ const navigationEvents = () => {
   document.querySelector('#authors').addEventListener('click', () => {
     // console.warn('CLICKED AUTHORS');
     getAuthors().then(showAuthors);
+    document.querySelector('.navbar-toggler').click();
   });
 
   document.querySelector('#fav-authors').addEventListener('click', () => {
     // console.warn('CLICKED AUTHORS');
     favoriteAuthor().then(showAuthors);
+    document.querySelector('.navbar-toggler').click();
   });
 
   // STRETCH: SEARCH
