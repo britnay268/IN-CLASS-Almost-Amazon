@@ -3,6 +3,9 @@ import { signOut } from '../utils/auth';
 import { showBooks } from '../pages/books';
 import { favoriteAuthor, getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
+import { searchStore } from '../api/mergedData';
+import renderToDOM from '../utils/renderToDom';
+import clearDom from '../utils/clearDom';
 
 // navigation events
 const navigationEvents = () => {
@@ -48,13 +51,25 @@ const navigationEvents = () => {
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search').value.toLowerCase();
-    console.warn(searchValue);
+    // console.warn(searchValue);
 
     // WHEN THE USER PRESSES ENTER, MAKE THE API CALL AND CLEAR THE INPUT
     if (e.keyCode === 13) {
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
       // OTHERWISE SHOW THE STORE
+      searchStore(searchValue).then(({ books, authors }) => {
+        if (books.length > 0 || authors.length > 0) {
+          clearDom();
+          console.warn(books, authors);
+          showBooks(books, false);
+          showAuthors(authors, false);
+        } else {
+          clearDom();
+          const domString = '<h1>No Results</h1>';
+          renderToDOM('#author-store', domString);
+        }
+      });
 
       document.querySelector('#search').value = '';
     }
