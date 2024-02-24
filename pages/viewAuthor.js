@@ -11,8 +11,8 @@ const viewAuthor = (obj) => {
       Author Email: <a href="mailto:${obj.email}">${obj.email}</a>
       <p>${obj.books.description || ''}</p>
       <div style="margin-bottom: 15px";>
-        <i id="edit-book-btn--${obj.firebaseKey}" class="btn btn-info"><span class="fas fa-edit"></span></i>
-        <i id="delete-book--${obj.firebaseKey}" class="btn btn-danger"><span class="fas fa-trash-alt"></span></i>
+        <i class="btn btn-info" id="edit-author--${obj.firebaseKey}"><span class="fas fa-edit" id="edit-author--${obj.firebaseKey}"></span></i>
+        <i class="btn btn-danger" id="delete-author-btn--${obj.firebaseKey}"><span class="fas fa-trash-alt" id="delete-author-btn--${obj.firebaseKey}"></span></i>
       </div>
       <h5>Books</h5>
     </div>
