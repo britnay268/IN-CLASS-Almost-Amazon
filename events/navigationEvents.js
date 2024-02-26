@@ -8,7 +8,7 @@ import renderToDOM from '../utils/renderToDom';
 import clearDom from '../utils/clearDom';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
@@ -16,20 +16,20 @@ const navigationEvents = () => {
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
     // console.warn('CLICKED SALE BOOKS');
-    booksOnSale().then(showBooks);
+    booksOnSale(uid).then(showBooks);
     document.querySelector('.navbar-toggler').click();
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     // console.warn('CLICKED ALL BOOKS');
-    getBooks().then(showBooks);
+    getBooks(uid).then(showBooks);
     document.querySelector('.navbar-toggler').click();
   });
 
   document.querySelector('#logo').addEventListener('click', () => {
     // console.warn('CLICKED ALL BOOKS');
-    getBooks().then(showBooks);
+    getBooks(uid).then(showBooks);
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -38,13 +38,13 @@ const navigationEvents = () => {
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
     // console.warn('CLICKED AUTHORS');
-    getAuthors().then(showAuthors);
+    getAuthors(uid).then(showAuthors);
     document.querySelector('.navbar-toggler').click();
   });
 
   document.querySelector('#fav-authors').addEventListener('click', () => {
     // console.warn('CLICKED AUTHORS');
-    favoriteAuthor().then(showAuthors);
+    favoriteAuthor(uid).then(showAuthors);
     document.querySelector('.navbar-toggler').click();
   });
 
