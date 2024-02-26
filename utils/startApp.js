@@ -7,16 +7,16 @@ import formEvents from '../events/formEvents';
 import navigationEvents from '../events/navigationEvents';
 import { showBooks } from '../pages/books';
 
-const startApp = () => {
+const startApp = (uid) => {
   domBuilder(); // BUILD THE DOM
-  domEvents(); // ADD THE EVENT LISTENTERS TO THE DOM
-  formEvents(); // ADD FORM EVENT LISTENTERS TO THE DOM
+  domEvents(uid); // ADD THE EVENT LISTENTERS TO THE DOM
+  formEvents(uid); // ADD FORM EVENT LISTENTERS TO THE DOM
   navBar(); // DYNAMICALLY ADD THE NAV
   logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT
-  navigationEvents(); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
+  navigationEvents(uid); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
 
   // TODO: Put all books on the DOM on App load
-  getBooks().then(showBooks);
+  getBooks(uid).then(showBooks);
 };
 
 export default startApp;
