@@ -6,7 +6,7 @@ const selectAuthor = (uid, authorId) => {
     <select class="form-control" id="author_id" required>
     <option value="">Select an Author</option>`;
 
-  console.warn(uid, authorId);
+  // console.warn(uid, authorId);
   getAuthors(uid).then((authorsArray) => {
     authorsArray.forEach((author) => {
       domString += `

@@ -104,7 +104,7 @@ const favoriteAuthor = (uid) => new Promise((resolve, reject) => {
       if (data) {
         const favAuthor = Object.values(data).filter((obj) => obj.favorite);
         resolve(favAuthor);
-        console.warn('Data', data, favAuthor);
+        // console.warn('Data', data, favAuthor);
       } else {
         resolve([]);
       }
