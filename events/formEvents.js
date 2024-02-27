@@ -8,7 +8,7 @@ const formEvents = (uid) => {
     e.preventDefault();
     // TODO: CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
     if (e.target.id.includes('submit-book')) {
-      console.warn('CLICKED SUBMIT BOOK', e.target.id);
+      // console.warn('CLICKED SUBMIT BOOK', e.target.id);
 
       const payload = {
         title: document.querySelector('#title').value,
@@ -48,13 +48,13 @@ const formEvents = (uid) => {
         getBooks(uid).then(showBooks);
       });
 
-      console.warn('CLICKED UPDATE BOOK', e.target.id);
-      console.warn(firebaseKey);
+      // console.warn('CLICKED UPDATE BOOK', e.target.id);
+      // console.warn(firebaseKey);
     }
 
     // FIXME: ADD CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('submit-author')) {
-      console.warn('CLICKED SUBMIT AUTHOR');
+      // console.warn('CLICKED SUBMIT AUTHOR');
 
       const payload = {
         first_name: document.querySelector('#first_name').value,
@@ -65,7 +65,7 @@ const formEvents = (uid) => {
 
       createAuthor(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
-        console.warn(name);
+        // console.warn(name);
 
         updateAuthor(patchPayload).then(() => {
           getAuthors(uid).then(showAuthors);

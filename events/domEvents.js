@@ -51,7 +51,7 @@ const domEvents = (uid) => {
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('DELETE AUTHOR', e.target.id);
+        // console.warn('DELETE AUTHOR', e.target.id);
         // console.warn(e.target.id.split('--'));
         const [, firebaseKey] = e.target.id.split('--');
 
@@ -63,12 +63,12 @@ const domEvents = (uid) => {
 
     // FIXME: ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
-      console.warn('ADD AUTHOR');
+      // console.warn('ADD AUTHOR');
       addAuthorForm();
     }
     // FIXME: ADD CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('edit-author')) {
-      console.warn('EDIT AUTHOR', e.target.id);
+      // console.warn('EDIT AUTHOR', e.target.id);
       const [, firebaseKey] = e.target.id.split('--');
 
       getSingleAuthor(firebaseKey).then(addAuthorForm);
@@ -81,6 +81,11 @@ const domEvents = (uid) => {
       const [, firebaseKey] = e.target.id.split('--');
 
       getAuthorDetails(firebaseKey).then(viewAuthor);
+    }
+
+    if (e.target.id.includes('backBtn')) {
+      // console.warn('Back button clicked');
+      getAuthors(uid).then(showAuthors);
     }
   });
 };

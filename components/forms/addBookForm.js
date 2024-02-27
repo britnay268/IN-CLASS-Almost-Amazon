@@ -35,7 +35,7 @@ const addBookForm = (obj = {}) => {
 
   renderToDOM('#form-container', domString);
   selectAuthor(`${obj.uid}`, `${obj.author_id}`);
-  console.warn(obj);
+  // console.warn(obj);
 };
 
 export default addBookForm;

@@ -61,7 +61,7 @@ const navigationEvents = (uid) => {
       searchStore(searchValue, uid).then(({ books, authors }) => {
         if (books.length > 0 || authors.length > 0) {
           clearDom();
-          console.warn(books, authors);
+          // console.warn(books, authors);
           showBooks(books, false);
           showAuthors(authors, false);
         } else {
