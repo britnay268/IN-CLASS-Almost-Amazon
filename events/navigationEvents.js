@@ -58,7 +58,7 @@ const navigationEvents = (uid) => {
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
       // OTHERWISE SHOW THE STORE
-      searchStore(searchValue).then(({ books, authors }) => {
+      searchStore(searchValue, uid).then(({ books, authors }) => {
         if (books.length > 0 || authors.length > 0) {
           clearDom();
           console.warn(books, authors);
