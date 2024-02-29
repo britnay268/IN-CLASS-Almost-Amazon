@@ -19,7 +19,7 @@ const addAuthorForm = (obj = {}) => {
       </div>
       <button type="submit" class="btn btn-primary mt-3">${obj.firebaseKey ? 'Update Author' : 'Submit Form'}</button>
       </div>
-      <button type="submit" id="backBtn" class="btn btn-primary mt-3">Back</button>
+      <button type="submit" id="author-backBtn" class="btn btn-primary mt-3">Back</button>
     </form>`;
 
   renderToDOM('#form-container', domString);

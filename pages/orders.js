@@ -7,13 +7,6 @@ const emptyOrders = () => {
 };
 
 const showOrders = (array) => {
-  // if (shouldClear === true) {
-  //   clearDom();
-
-  //   const btnString = '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
-
-  //   renderToDOM('#add-button', btnString);
-  // }
   clearDom();
 
   const btnString = '<button class="btn btn-success btn-lg mb-4" id="add-order-btn">Add An Order</button>';

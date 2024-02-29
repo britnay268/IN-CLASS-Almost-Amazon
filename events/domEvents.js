@@ -4,10 +4,17 @@ import { getAuthors, getSingleAuthor } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
-import { deleteAuthorAndAuthorBooks, getAuthorDetails, getBookDetails } from '../api/mergedData';
+import {
+  deleteAuthorAndAuthorBooks, getAuthorDetails, getBookDetails, getBooksNotInOrder, getOrderAndBooks
+} from '../api/mergedData';
 import viewBook from '../pages/viewBook';
 import viewAuthor from '../pages/viewAuthor';
-// import viewBook from '../pages/viewBook';
+import addOrderForm from '../components/forms/addOrderForm';
+import { getOrders } from '../api/orderData';
+import { showOrders } from '../pages/orders';
+import viewOrder from '../pages/viewOrders';
+import { showBooksNotInOrder } from '../pages/booksNotInOrder';
+import { createOrderBooks, updateOrderBooks } from '../api/orderBooksData';
 
 const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -83,9 +90,75 @@ const domEvents = (uid) => {
       getAuthorDetails(firebaseKey).then(viewAuthor);
     }
 
-    if (e.target.id.includes('backBtn')) {
+    if (e.target.id.includes('author-backBtn')) {
       // console.warn('Back button clicked');
       getAuthors(uid).then(showAuthors);
+    }
+
+    if (e.target.id.includes('order-backBtn')) {
+      // console.warn('Back button clicked');
+      // getAuthors(uid).then(showAuthors);
+      getOrders(uid).then(showOrders);
+    }
+
+    if (e.target.id.includes('add-order-btn')) {
+      // console.warn('ADD AUTHOR');
+      addOrderForm();
+    }
+
+    // This allows me to view the books for the order
+    if (e.target.id.includes('view-order-btn')) {
+      // console.warn('VIEW Order', e.target.id);
+
+      const [, firebaseKey] = e.target.id.split('--');
+      // This gets the order but has no books.
+      // getSingleOrder(firebaseKey).then(viewOrder);
+
+      getOrderAndBooks(firebaseKey).then(viewOrder);
+      // console.warn(e.target.id.split('--'));
+    }
+
+    if (e.target.id.includes('show-books-not-in-order-btn')) {
+      console.warn('Show Books', e.target.id);
+      // console.warn(e.target.id.split('--'));
+      const [, orderFirebaseKey] = e.target.id.split('--');
+      // This show undefined because we need to do a merged Promise to get the books related to the order_id and book_id (getOrderBooks(firebaseKey).then(showBooksNotInOrder);)
+      getBooksNotInOrder(uid, orderFirebaseKey).then((array) => showBooksNotInOrder(array, orderFirebaseKey));
+    }
+
+    if (e.target.id.includes('add-book-to-order-btn')) {
+      console.warn('Add To Order', e.target.id);
+
+      // SPLIT OFF THE BOTH KEYS FROM BUTTON
+      const [, orderFirebaseKey, bookFirebaseKey] = e.target.id.split('--');
+      // CREATE A PAYLOAD TO REPRESENT THE ORDERBOOK MANY-TO-MANY RELATIONSHIP
+      console.warn(orderFirebaseKey);
+      const payload = {
+        order_id: orderFirebaseKey,
+        book_id: bookFirebaseKey,
+        uid
+      };
+      // CREATE ORDERBOOK
+      createOrderBooks(payload).then(({ name }) => {
+        // PATCH FIREBASEKEY
+        const patchPayload = { firebaseKey: name };
+        // UPDATE ORDER BOOK
+        updateOrderBooks(patchPayload).then(() => {
+          // CALL GET ALL BOOKS NOT IN THE ORDER SO THE BOOK JUST ADDED WILL NOT SHOW IN VIEW
+          // YOU CAN ONLY ADD BOOKS TO ORDER FROM THE showBooksNotInOrder VIEW
+          getBooksNotInOrder(uid, orderFirebaseKey).then((array) => showBooksNotInOrder(array, orderFirebaseKey));
+        });
+      });
+    }
+
+    if (e.target.id.includes('edit-order')) {
+      console.warn('Edit Order', e.target.id);
+      // console.warn(e.target.id.split('--'));
+    }
+
+    if (e.target.id.includes('delete-order-btn')) {
+      console.warn('Delete Order', e.target.id);
+      // console.warn(e.target.id.split('--'));
     }
   });
 };
