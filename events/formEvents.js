@@ -1,7 +1,9 @@
 import { createAuthor, getAuthors, updateAuthor } from '../api/authorData';
 import { createBook, getBooks, updateBook } from '../api/bookData';
+import { createOrder, getOrders, updateOrder } from '../api/orderData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import { showOrders } from '../pages/orders';
 
 const formEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -72,6 +74,7 @@ const formEvents = (uid) => {
         });
       });
     }
+
     // FIXME:ADD CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('update-author')) {
       const [, firebaseKey] = e.target.id.split('--');
@@ -86,6 +89,39 @@ const formEvents = (uid) => {
 
       updateAuthor(payload).then(() => {
         getAuthors(uid).then(showAuthors);
+      });
+    }
+
+    if (e.target.id.includes('submit-order')) {
+      const payload = {
+        customer_firstName: document.querySelector('#customer_firstName').value,
+        customer_lastName: document.querySelector('#customer_lastName').value,
+        notes: document.querySelector('#notes').value,
+        uid
+      };
+
+      createOrder(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+
+        updateOrder(patchPayload).then(() => {
+          getOrders(uid).then(showOrders);
+        });
+      });
+    }
+
+    if (e.target.id.includes('update-order')) {
+      const [, firebaseKey] = e.target.id.split('--');
+
+      const payload = {
+        customer_firstName: document.querySelector('#customer_firstName').value,
+        customer_lastName: document.querySelector('#customer_lastName').value,
+        notes: document.querySelector('#notes').value,
+        firebaseKey,
+        uid
+      };
+
+      updateOrder(payload).then(() => {
+        getOrders(uid).then(showOrders);
       });
     }
   });

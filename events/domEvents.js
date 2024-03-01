@@ -10,7 +10,7 @@ import {
 import viewBook from '../pages/viewBook';
 import viewAuthor from '../pages/viewAuthor';
 import addOrderForm from '../components/forms/addOrderForm';
-import { getOrders } from '../api/orderData';
+import { deleteOrder, getOrders, getSingleOrder } from '../api/orderData';
 import { showOrders } from '../pages/orders';
 import viewOrder from '../pages/viewOrders';
 import { showBooksNotInOrder } from '../pages/booksNotInOrder';
@@ -168,11 +168,17 @@ const domEvents = (uid) => {
     if (e.target.id.includes('edit-order-btn')) {
       console.warn('Edit Order', e.target.id);
       // console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+      getSingleOrder(firebaseKey).then((obj) => addOrderForm(obj));
     }
 
     if (e.target.id.includes('delete-order-btn')) {
       console.warn('Delete Order', e.target.id);
       // console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+      deleteOrder(firebaseKey).then(() => {
+        getOrders(uid).then(showOrders);
+      });
     }
   });
 };
