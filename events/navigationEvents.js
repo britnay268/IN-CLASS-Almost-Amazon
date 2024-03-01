@@ -6,6 +6,8 @@ import { showAuthors } from '../pages/authors';
 import { searchStore } from '../api/mergedData';
 import renderToDOM from '../utils/renderToDom';
 import clearDom from '../utils/clearDom';
+import { getOrders } from '../api/orderData';
+import { showOrders } from '../pages/orders';
 
 // navigation events
 const navigationEvents = (uid) => {
@@ -73,6 +75,13 @@ const navigationEvents = (uid) => {
 
       document.querySelector('#search').value = '';
     }
+  });
+
+  // ORDERS: This gets the orders with a promise and show then sowOrders in the HTMl format and also close navbar when orders is clicked
+  document.querySelector('#orders').addEventListener('click', () => {
+    // console.warn('CLICKED ORDERS');
+    document.querySelector('.navbar-toggler').click();
+    getOrders(uid).then(showOrders);
   });
 };
 
