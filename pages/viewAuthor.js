@@ -30,7 +30,7 @@ const viewAuthor = (obj) => {
               <hr>
               <i class="btn btn-success" id="view-book-btn--${book.firebaseKey}"><span class="fas fa-eye"></span></i>
               <i id="edit-book-btn--${book.firebaseKey}" class="btn btn-info"><span class="fas fa-edit"></span></i>
-              <i id="delete-book-btn--${book.firebaseKey}" class="btn btn-danger"><span class="fas fa-trash-alt"></span></i>
+              <i id="delete-author-btn--${book.firebaseKey}" class="btn btn-danger"><span class="fas fa-trash-alt"></span></i>
             </div>
         </div>
       </div>

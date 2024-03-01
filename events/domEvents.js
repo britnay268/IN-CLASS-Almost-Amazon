@@ -5,7 +5,7 @@ import { showAuthors } from '../pages/authors';
 import addBookForm from '../components/forms/addBookForm';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import {
-  deleteAuthorAndAuthorBooks, getAuthorDetails, getBookDetails, getBooksNotInOrder, getOrderAndBooks
+  deleteAuthorAndAuthorBooks, getASingleBookOrder, getAuthorDetails, getBookDetails, getBooksNotInOrder, getOrderAndBooks
 } from '../api/mergedData';
 import viewBook from '../pages/viewBook';
 import viewAuthor from '../pages/viewAuthor';
@@ -14,12 +14,12 @@ import { getOrders } from '../api/orderData';
 import { showOrders } from '../pages/orders';
 import viewOrder from '../pages/viewOrders';
 import { showBooksNotInOrder } from '../pages/booksNotInOrder';
-import { createOrderBooks, updateOrderBooks } from '../api/orderBooksData';
+import { createOrderBooks, deleteOrderBooks, updateOrderBooks } from '../api/orderBooksData';
 
 const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     // TODO: CLICK EVENT FOR DELETING A BOOK
-    if (e.target.id.includes('delete-book')) {
+    if (e.target.id.includes('delete-book-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         // console.warn('CLICKED DELETE BOOK', e.target.id);
@@ -151,7 +151,21 @@ const domEvents = (uid) => {
       });
     }
 
-    if (e.target.id.includes('edit-order')) {
+    if (e.target.id.includes('delete-book-from-order-btn')) {
+      console.warn('Delete Book from Order', e.target.id);
+      // SPLIT OFF THE BOTH KEYS FROM BUTTON
+      const [, orderFirebaseKey, bookFirebaseKey] = e.target.id.split('--');
+      // GET THE SINGLE BOOK ORDER SO YOU HAVE THE FIREBASEKEY
+      getASingleBookOrder(orderFirebaseKey, bookFirebaseKey)
+        // DELETE SINGLE ORDERBOOK BY FIREBASEKEY
+        .then((orderBook) => deleteOrderBooks(orderBook.firebaseKey))
+        .then(() => {
+          // GET ORDER DETAILS AND VIEW ORDER
+          getOrderAndBooks(orderFirebaseKey).then(viewOrder);
+        });
+    }
+
+    if (e.target.id.includes('edit-order-btn')) {
       console.warn('Edit Order', e.target.id);
       // console.warn(e.target.id.split('--'));
     }

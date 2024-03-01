@@ -82,14 +82,15 @@ const getOrderAndBooks = async (orderFirebaseKey) => {
 };
 
 // // THIS IS USED TO REMOVE A BOOK FROM AN ORDER
-// const getASingleBookOrder = async (bookFirebaseKey, orderFirebaseKey) => {
-//   // GET ALL THE ORDERBOOKS RELATED TO THE ORDER
-
-//   // FIND THE SINGLE BOOK WHERE ORDERBOOK.BOOK_ID IS EQUAL TO THE BOOKFIREBASEKEY
-
-//   // RETURN THE SINGLE ORDERBOOK SO YOU CAN HAVE THE FIREBASEKEY TO DELETE
-// };
+const getASingleBookOrder = async (orderFirebaseKey, bookFirebaseKey) => {
+  // GET ALL THE ORDERBOOKS RELATED TO THE ORDER
+  const orderBooks = await getOrderBooks(orderFirebaseKey);
+  // FIND THE SINGLE BOOK WHERE ORDERBOOK.BOOK_ID IS EQUAL TO THE BOOKFIREBASEKEY
+  const singleBookInOrder = await orderBooks.find((book) => book.book_id === bookFirebaseKey);
+  // RETURN THE SINGLE ORDERBOOK SO YOU CAN HAVE THE FIREBASEKEY TO DELETE
+  return singleBookInOrder;
+};
 
 export {
-  getBookDetails, getAuthorDetails, deleteAuthorAndAuthorBooks, searchStore, getBooksNotInOrder, getOrderAndBooks
+  getBookDetails, getAuthorDetails, deleteAuthorAndAuthorBooks, searchStore, getBooksNotInOrder, getOrderAndBooks, getASingleBookOrder
 };

@@ -24,7 +24,7 @@ const showOrders = (array) => {
           <h5 class="card-title">${item.customer_firstName} ${item.customer_lastName}</h5>
           <p class="card-text">${item.notes}</p>
           <i class="btn btn-success" id="view-order-btn--${item.firebaseKey}"><span class="fas fa-eye" id="view-order-btn--${item.firebaseKey}"></span></i>
-          <i class="btn btn-info" id="edit-order--${item.firebaseKey}"><span class="fas fa-edit" id="edit-order--${item.firebaseKey}"></span></i>
+          <i class="btn btn-info" id="edit-order-btn--${item.firebaseKey}"><span class="fas fa-edit" id="edit-order-btn--${item.firebaseKey}"></span></i>
           <i class="btn btn-danger" id="delete-order-btn--${item.firebaseKey}"><span class="fas fa-trash-alt" id="delete-order-btn--${item.firebaseKey}"></span></i>
         </div>
       </div>
